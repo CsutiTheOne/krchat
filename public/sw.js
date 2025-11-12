@@ -14,6 +14,6 @@ async function impl(e) {
 
 self.addEventListener("fetch", e => e.respondWith(impl(e))); // Eseményre feliratkozás
 
-self.addEventListener("push", e => e.respondWith((e) => {
-    self.registration.showNotification("Chat Notification", {"body": e.data?.text()}, e.waitUntil());
+self.addEventListener("push", e => e.waitUntil((e) => {
+    self.registration.showNotification("Chat Notification", {"body": e.data?.text()});
 }));
