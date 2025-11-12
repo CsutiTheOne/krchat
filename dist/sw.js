@@ -12,8 +12,17 @@ async function impl(e) {
     }
 }
 
+async function showNotification(e) {
+    Notification.requestPermission().then((result) => {
+        if (result === "granted") {
+            navigator.serviceWorker.ready.then((registration) => {
+                console.log("Notifiction clicked");
+                e.waitUntil( self.registration.showNotification("Chat Notification", {"body": e.data?.text()}));
+            })
+        }
+    });
+}
+
 self.addEventListener("fetch", e => e.respondWith(impl(e))); // Eseményre feliratkozás
 
-self.addEventListener("push", e => e.waitUntil((e) => {
-    self.registration.showNotification("Chat Notification", {"body": e.data?.text()});
-}));
+self.addEventListener( "notificationclick",  e => e.respondWith(showNotification(e)) );
