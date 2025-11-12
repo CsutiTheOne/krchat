@@ -13,7 +13,7 @@ async function impl(e) {
 }
 
 function showNotification(e) {
-    Notification.requestPermission().then((result) => {
+    ((result) => {
         if (result === "granted") {
             navigator.serviceWorker.ready.then((registration) => {
                 console.log("Notifiction clicked");

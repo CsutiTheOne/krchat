@@ -18,3 +18,5 @@ function App() {
 }
 
 render(<App />, document.getElementById('app'));
+
+Notification.requestPermission();
