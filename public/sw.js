@@ -13,16 +13,13 @@ async function impl(e) {
 }
 
 function showNotification(e) {
-    ((result) => {
-        if (result === "granted") {
-            navigator.serviceWorker.ready.then((registration) => {
-                console.log("Notifiction clicked");
-                e.waitUntil( self.registration.showNotification("Chat Notification", {"body": e.data?.text()}));
-            })
-        }
+    
+    navigator.serviceWorker.ready.then((registration) => {
+        console.log("Notifiction clicked");
+        e.waitUntil( self.registration.showNotification("Chat Notification", {"body": e.data?.text()}));
     });
 }
 
 self.addEventListener("fetch", e => e.respondWith(impl(e))); // Eseményre feliratkozás
 
-self.addEventListener( "notificationclick",  e => e.respondWith(showNotification(e)) );
+self.addEventListener("push",  e => e.respondWith(showNotification(e)) );
